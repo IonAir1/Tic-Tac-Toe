@@ -1,7 +1,8 @@
-extends TouchScreenButton
+extends Node2D
 
 var color_shift:bool = false
 var state:int = 0
+var box_number:int
 
 
 func _ready():
@@ -36,5 +37,8 @@ func update_state():
 		$p2.visible = false
 		$p3.visible = false
 		$p4.visible = true
-		
-		
+
+
+
+func _on_button_pressed():
+	Global.latest_box = box_number

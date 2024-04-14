@@ -20,6 +20,7 @@ func _ready():
 		else:
 			r.color_shift = false
 		rows.append(r)
+		r.row_number = i
 		r.position.y = find_pos(Global.board_size, i)
 		add_child(r)
 

@@ -11,13 +11,20 @@ func _ready():
 		board.append(0)
 	for i in range(Global.player_count):
 		players.append([])
-	print(board_to_string(board))
+	
+	#print(board_to_string(board))
+	
+	for row in $CenterContainer/board.get_children():
+		for box in row.get_children():
+			box.get_node("button").pressed.connect(on_box_update)
 
 
 func _process(delta):
-	if Input.is_action_just_released("enter"):
-		input_play(int($LineEdit.text))
-		print(board_to_string(board))
+	pass
+	
+	#if Input.is_action_just_released("enter"):
+		#input_play(int($LineEdit.text))
+		#print(board_to_string(board))
 
 
 func input_play(cell): #lets the player take a turn
@@ -29,6 +36,8 @@ func input_play(cell): #lets the player take a turn
 	
 	if(check_for_win(curr_player)):
 		print("player %s has won" % curr_player)
+		$win.visible = true
+		$win.text = ("player %s has won" % curr_player)
 	
 	curr_player += 1
 	if curr_player > Global.player_count:
@@ -54,3 +63,7 @@ func board_to_string(board): #convert board list to a printable string
 			board_string += str(board[(row*Global.board_size)+column]) + " "
 		board_string += "\n\n"
 	return board_string
+
+
+func on_box_update():
+	input_play(Global.latest_box)
