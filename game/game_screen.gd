@@ -34,6 +34,8 @@ func input_play(cell): #lets the player take a turn
 	else:
 		print("cell is already taken")
 	
+	delete_box(Global.delete_last_box)
+	
 	if(check_for_win(curr_player)):
 		print("player %s has won" % curr_player)
 		$win.visible = true
@@ -44,6 +46,13 @@ func input_play(cell): #lets the player take a turn
 		curr_player = 1
 	$CenterContainer/board.board_state = board
 	$CenterContainer/board.update_board()
+
+
+func delete_box(n):
+	if n > 0:
+		if len(players[curr_player - 1]) > n:
+			board[players[curr_player - 1][0]] = 0
+			players[curr_player - 1].remove_at(0)
 
 
 func check_for_win(chosen_player): #check if player won; player number as input
