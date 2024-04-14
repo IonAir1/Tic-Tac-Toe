@@ -53,6 +53,10 @@ func check_for_win(chosen_player): #check if player won; player number as input
 			return true
 		if player.has(cell-Global.board_size) and player.has(cell+Global.board_size):
 			return true
+		if player.has(cell-(Global.board_size-1)) and player.has(cell+(Global.board_size-1)):
+			return true
+		if player.has(cell-(Global.board_size+1)) and player.has(cell+(Global.board_size+1)):
+			return true
 	return false
 
 
