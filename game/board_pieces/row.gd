@@ -1,26 +1,24 @@
 extends Node2D
 
-var row:PackedScene = preload("res://game/board_pieces/row.tscn")
-var rows:Array
+var box:PackedScene = preload("res://game/board_pieces/box.tscn")
+var boxes:Array
 var color_shift:bool = false
 
-
 func _ready():
-	scale.x = (3.0 / Global.board_size)
-	scale.y = (3.0 / Global.board_size)
-
 	for i in range(Global.board_size):
-		var r = row.instantiate()
+
+		var b = box.instantiate()
 		
-		if !color_shift and (i%2 == 0):
-			r.color_shift = true
-		elif color_shift and (i%2 == 1):
-			r.color_shift = true
-		else:
-			r.color_shift = false
-		rows.append(r)
-		r.position.y = find_pos(Global.board_size, i)
-		add_child(r)
+		#if !color_shift and (i%2 == 0):
+			#b.color_shift = true
+		#elif color_shift and (i%2 == 1):
+			#b.color_shift = true
+		#else:
+			#b.color_shift = false
+		
+		boxes.append(b)
+		b.position.x = find_pos(Global.board_size, i)
+		add_child(b)
 
 
 func find_pos(board_size, pos): #determine position of cell

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwwhsvhyogoy1"]
+
+[ext_resource type="Script" path="res://game/board_pieces/box.gd" id="1_ft2pk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yd8o6"]
+
+[node name="Box" type="MeshInstance2D"]
+position = Vector2(1, 1)
+scale = Vector2(200, 200)
+mesh = SubResource("BoxMesh_yd8o6")
+script = ExtResource("1_ft2pk")

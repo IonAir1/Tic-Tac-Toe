@@ -3,14 +3,38 @@
 [ext_resource type="Script" path="res://game/game_screen.gd" id="1_kygwj"]
 [ext_resource type="Script" path="res://game/board.gd" id="2_w2uk7"]
 
-[node name="GameScreen" type="Node2D"]
+[node name="GameScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_kygwj")
+metadata/_edit_use_anchors_ = true
 
-[node name="board" type="Node2D" parent="."]
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_right = 165.0
+offset_bottom = 189.0
+grow_horizontal = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="board" type="Node2D" parent="CenterContainer"]
 script = ExtResource("2_w2uk7")
-
-[node name="LineEdit" type="LineEdit" parent="board"]
-offset_left = 285.0
-offset_top = 259.0
-offset_right = 619.0
-offset_bottom = 410.0
