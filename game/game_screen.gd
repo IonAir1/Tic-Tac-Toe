@@ -6,6 +6,7 @@ var players:Array
 
 
 func _ready():
+	
 	for i in range(Global.board_size*Global.board_size):
 		board.append(0)
 	for i in range(Global.player_count):
@@ -32,6 +33,8 @@ func input_play(cell): #lets the player take a turn
 	curr_player += 1
 	if curr_player > Global.player_count:
 		curr_player = 1
+	$CenterContainer/board.board_state = board
+	$CenterContainer/board.update_board()
 
 
 func check_for_win(chosen_player): #check if player won; player number as input
@@ -45,7 +48,7 @@ func check_for_win(chosen_player): #check if player won; player number as input
 
 
 func board_to_string(board): #convert board list to a printable string
-	var board_string:String
+	var board_string:String = "\n\n\n\n\n\n"
 	for row in range(Global.board_size):
 		for column in range(Global.board_size):
 			board_string += str(board[(row*Global.board_size)+column]) + " "
