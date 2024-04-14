@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://vssi4leqb0mm"]
+
+[ext_resource type="Script" path="res://game/game_screen.gd" id="1_kygwj"]
+[ext_resource type="Script" path="res://game/board.gd" id="2_w2uk7"]
+
+[node name="GameScreen" type="Node2D"]
+script = ExtResource("1_kygwj")
+
+[node name="board" type="Node2D" parent="."]
+script = ExtResource("2_w2uk7")
+
+[node name="LineEdit" type="LineEdit" parent="board"]
+offset_left = 285.0
+offset_top = 259.0
+offset_right = 619.0
+offset_bottom = 410.0
