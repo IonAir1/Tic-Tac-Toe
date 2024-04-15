@@ -41,7 +41,6 @@ func input_play(cell): #lets the player take a turn
 		print("player %s has won" % curr_player)
 		$win.visible = true
 		$win.text = ("player %s has won" % curr_player)
-		return
 	
 	curr_player += 1
 	if curr_player > Global.player_count:
