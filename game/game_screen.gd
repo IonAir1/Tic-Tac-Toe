@@ -5,6 +5,7 @@ var curr_player: int = 1
 var players:Array
 
 
+
 func _ready():
 	
 	for i in range(Global.board_size*Global.board_size):
@@ -14,7 +15,7 @@ func _ready():
 	
 	#print(board_to_string(board))
 	
-	for row in $CenterContainer/board.get_children():
+	for row in $CenterContainer/Board.get_children():
 		for box in row.get_children():
 			box.get_node("button").pressed.connect(on_box_update)
 
@@ -36,17 +37,16 @@ func input_play(cell): #lets the player take a turn
 		return
 	
 	delete_box(Global.delete_last_box)
-	
-	if(check_for_win(curr_player)):
-		print("player %s has won" % curr_player)
-		$win.visible = true
-		$win.text = ("player %s has won" % curr_player)
-	
+
 	curr_player += 1
 	if curr_player > Global.player_count:
 		curr_player = 1
-	$CenterContainer/board.board_state = board
-	$CenterContainer/board.update_board()
+	$CenterContainer/Board.board_state = board
+	$CenterContainer/Board.update_board()
+
+	if(check_for_win(curr_player)):
+		print("player %s has won" % curr_player)
+		Global.winner = ("player %s won" % curr_player)
 
 
 func delete_box(n):
@@ -99,5 +99,17 @@ func board_to_string(board): #convert board list to a printable string
 	return board_string
 
 
+func undo():
+	pass
+
+
 func on_box_update():
 	input_play(Global.latest_box)
+
+
+func _on_undo_pressed():
+	undo()
+
+
+func _on_home_pressed():
+	pass # Replace with function body.

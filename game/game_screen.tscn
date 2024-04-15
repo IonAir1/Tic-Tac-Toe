@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://vssi4leqb0mm"]
+[gd_scene load_steps=4 format=3 uid="uid://vssi4leqb0mm"]
 
 [ext_resource type="Script" path="res://game/game_screen.gd" id="1_kygwj"]
 [ext_resource type="Script" path="res://game/board.gd" id="2_w2uk7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8iy5"]
+bg_color = Color(0.258824, 0.258824, 0.258824, 1)
 
 [node name="GameScreen" type="Control"]
 layout_mode = 3
@@ -16,21 +19,43 @@ mouse_filter = 2
 script = ExtResource("1_kygwj")
 metadata/_edit_use_anchors_ = true
 
-[node name="win" type="Label" parent="."]
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -43.5
-offset_top = -69.0
-offset_right = 43.5
+offset_left = 50.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = -1063.0
 grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 50
-text = "Player 1 won"
+grow_vertical = 2
+
+[node name="Home" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_w8iy5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w8iy5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w8iy5")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_w8iy5")
+theme_override_styles/focus = SubResource("StyleBoxFlat_w8iy5")
+text = "⌂"
+
+[node name="Undo" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_w8iy5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w8iy5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w8iy5")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_w8iy5")
+theme_override_styles/focus = SubResource("StyleBoxFlat_w8iy5")
+text = "⮐"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -43,5 +68,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="board" type="Node2D" parent="CenterContainer"]
+[node name="Board" type="Node2D" parent="CenterContainer"]
 script = ExtResource("2_w2uk7")
+
+[connection signal="pressed" from="MarginContainer/Undo" to="." method="_on_undo_pressed"]
