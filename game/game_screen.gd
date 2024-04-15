@@ -115,10 +115,10 @@ func undo():
 		players[prev - 1].insert(0, delete_history[-1]["box"])
 		delete_history.remove_at(delete_history.size() - 1)
 	
-	if len(players[prev - 1]) > 0:
-		board[players[prev - 1][-1]] = 0
-		players[prev - 1].remove_at(players[prev - 1].size() - 1)
-		curr_player = prev
+		if len(players[prev - 1]) > 0:
+			board[players[prev - 1][-1]] = 0
+			players[prev - 1].remove_at(players[prev - 1].size() - 1)
+			curr_player = prev
 	
 	$CenterContainer/Board.update_board()
 
