@@ -37,21 +37,21 @@ func input_play(cell): #lets the player take a turn
 		return
 	
 	delete_box(Global.delete_last_box)
-
+	
+	if(check_for_win(curr_player)): #check for win
+		print("player %s won" % curr_player)
+		Global.winner = ("player %s won" % curr_player)
+		get_tree().change_scene_to_file("res://menu/main_menu.tscn")
+		
+	if !board.has(0): #check for draw
+		Global.winner = "Game ended in draw"
+		get_tree().change_scene_to_file("res://menu/main_menu.tscn")
+	
 	curr_player += 1
 	if curr_player > Global.player_count:
 		curr_player = 1
 	$CenterContainer/Board.board_state = board
 	$CenterContainer/Board.update_board()
-
-	if(check_for_win(curr_player)):
-		print("player %s won" % curr_player)
-		Global.winner = ("player %s won" % curr_player)
-		get_tree().change_scene_to_file("res://menu/main_menu.tscn")
-	
-	if !board.has(0): #check for draw
-		Global.winner = "Game ended in draw"
-		get_tree().change_scene_to_file("res://menu/main_menu.tscn")
 
 
 func delete_box(n):
@@ -125,7 +125,6 @@ func undo():
 		board[players[prev - 1][-1]] = 0
 		players[prev - 1].remove_at(players[prev - 1].size() - 1)
 		curr_player = prev
-	
 	$CenterContainer/Board.update_board()
 
 
