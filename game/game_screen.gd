@@ -48,6 +48,10 @@ func input_play(cell): #lets the player take a turn
 		print("player %s won" % curr_player)
 		Global.winner = ("player %s won" % curr_player)
 		get_tree().change_scene_to_file("res://menu/main_menu.tscn")
+	
+	if !board.has(0): #check for draw
+		Global.winner = "Game ended in draw"
+		get_tree().change_scene_to_file("res://menu/main_menu.tscn")
 
 
 func delete_box(n):
