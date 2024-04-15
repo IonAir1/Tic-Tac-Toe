@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://cams36mgowtyk"]
+[gd_scene load_steps=18 format=3 uid="uid://cams36mgowtyk"]
 
 [ext_resource type="Script" path="res://menu/main_menu.gd" id="1_mfv51"]
+[ext_resource type="PackedScene" uid="uid://vssi4leqb0mm" path="res://game/game_screen.tscn" id="2_kbswx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hwi4c"]
 
@@ -22,18 +23,6 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_stchv"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_47oh5"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l3keu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2wm7a"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3u6q7"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k0jqf"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2d28o"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0m700"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lyg80"]
@@ -44,7 +33,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0w1n4"]
 
-[node name="Main Menu" type="Control"]
+[node name="Main Menu" type="Control" node_paths=PackedStringArray("winner_text", "player_text", "size_text", "max_text")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,6 +41,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mfv51")
+winner_text = NodePath("MarginContainer/Text/Winner")
+player_text = NodePath("MarginContainer/Menu/Players/Text")
+size_text = NodePath("MarginContainer/Menu/Size/Text")
+max_text = NodePath("MarginContainer/Menu/Maximum/Text")
+game_scene = ExtResource("2_kbswx")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -175,32 +169,43 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_ibwes")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_stchv")
 text = ">"
 
-[node name="Limited" type="HBoxContainer" parent="MarginContainer/Menu"]
+[node name="Maximum" type="HBoxContainer" parent="MarginContainer/Menu"]
 layout_mode = 2
 alignment = 1
 
-[node name="Text" type="Label" parent="MarginContainer/Menu/Limited"]
+[node name="Text" type="Label" parent="MarginContainer/Menu/Maximum"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 50
-text = "Limited Play"
+text = "Max: 3"
 horizontal_alignment = 1
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/Menu/Limited"]
-custom_minimum_size = Vector2(60, 60)
+[node name="Left" type="Button" parent="MarginContainer/Menu/Maximum"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxEmpty_47oh5")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_l3keu")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_2wm7a")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_3u6q7")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_k0jqf")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2d28o")
-alignment = 1
-clip_text = true
-icon_alignment = 1
-expand_icon = true
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hwi4c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_k5obp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i684h")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_02ngl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_c7lrc")
+text = "<"
+
+[node name="Right" type="Button" parent="MarginContainer/Menu/Maximum"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6h1xl")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4lqsb")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fkra8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ibwes")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_stchv")
+text = ">"
 
 [node name="Play" type="Button" parent="MarginContainer/Menu"]
 layout_mode = 2
@@ -211,3 +216,11 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_ygp5j")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_ibwua")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_0w1n4")
 text = "Play"
+
+[connection signal="pressed" from="MarginContainer/Menu/Players/Left" to="." method="_on_player_decrease_pressed"]
+[connection signal="pressed" from="MarginContainer/Menu/Players/Right" to="." method="_on_player_increase_pressed"]
+[connection signal="pressed" from="MarginContainer/Menu/Size/Left" to="." method="_on_size_decrease_pressed"]
+[connection signal="pressed" from="MarginContainer/Menu/Size/Right" to="." method="_on_size_increase_pressed"]
+[connection signal="pressed" from="MarginContainer/Menu/Maximum/Left" to="." method="_on_max_decrease_pressed"]
+[connection signal="pressed" from="MarginContainer/Menu/Maximum/Right" to="." method="_on_max_increase_pressed"]
+[connection signal="pressed" from="MarginContainer/Menu/Play" to="." method="_on_play_pressed"]

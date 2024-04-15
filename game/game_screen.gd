@@ -45,7 +45,7 @@ func input_play(cell): #lets the player take a turn
 	$CenterContainer/Board.update_board()
 
 	if(check_for_win(curr_player)):
-		print("player %s has won" % curr_player)
+		print("player %s won" % curr_player)
 		Global.winner = ("player %s won" % curr_player)
 
 
