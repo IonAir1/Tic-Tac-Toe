@@ -93,6 +93,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/Menu"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
 [node name="Players" type="HBoxContainer" parent="MarginContainer/Menu"]
 layout_mode = 2
 alignment = 1
