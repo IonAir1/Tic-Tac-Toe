@@ -33,6 +33,7 @@ func input_play(cell): #lets the player take a turn
 		players[curr_player-1].append(cell)
 	else:
 		print("cell is already taken")
+		return
 	
 	delete_box(Global.delete_last_box)
 	
@@ -40,6 +41,7 @@ func input_play(cell): #lets the player take a turn
 		print("player %s has won" % curr_player)
 		$win.visible = true
 		$win.text = ("player %s has won" % curr_player)
+		return
 	
 	curr_player += 1
 	if curr_player > Global.player_count:
@@ -58,15 +60,35 @@ func delete_box(n):
 func check_for_win(chosen_player): #check if player won; player number as input
 	var player = players[chosen_player-1]
 	for cell in player:
-		if player.has(cell-1) and player.has(cell+1):
-			return true
-		if player.has(cell-Global.board_size) and player.has(cell+Global.board_size):
-			return true
-		if player.has(cell-(Global.board_size-1)) and player.has(cell+(Global.board_size-1)):
-			return true
-		if player.has(cell-(Global.board_size+1)) and player.has(cell+(Global.board_size+1)):
-			return true
+		if player.has(cell-1) \
+		and player.has(cell+1):
+			if get_row(cell) == get_row(cell + 1) \
+			and get_row(cell) == get_row(cell - 1):
+				return true
+				
+		if player.has(cell-Global.board_size) \
+		and player.has(cell+Global.board_size):
+			if get_row(cell) == (get_row(cell - Global.board_size) + 1) \
+			and get_row(cell) == (get_row(cell + Global.board_size) - 1):
+				return true
+
+		if player.has(cell - (Global.board_size - 1)) \
+		and player.has(cell + (Global.board_size - 1)):
+			if get_row(cell) == (get_row(cell - Global.board_size - 1) + 1) \
+			and get_row(cell) == (get_row(cell + Global.board_size - 1) - 1):
+				return true
+
+		if player.has(cell-(Global.board_size+1)) \
+		and player.has(cell+(Global.board_size+1)):
+			if get_row(cell) == (get_row(cell - Global.board_size + 1) + 1) \
+			and get_row(cell) == (get_row(cell + Global.board_size + 1) - 1):
+				return true
+				
 	return false
+
+
+func get_row(cell): #get row number
+	return floor(cell / Global.board_size)
 
 
 func board_to_string(board): #convert board list to a printable string
