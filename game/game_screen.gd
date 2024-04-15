@@ -3,7 +3,7 @@ extends Control
 var board:Array
 var curr_player: int = 1
 var players:Array
-
+var delete_history:Array
 
 
 func _ready():
@@ -52,6 +52,12 @@ func input_play(cell): #lets the player take a turn
 func delete_box(n):
 	if n > 0:
 		if len(players[curr_player - 1]) > n:
+			delete_history.append({
+				"box": players[curr_player - 1][0],
+				"state": board[players[curr_player - 1][0]]
+			})
+			if len(delete_history) > 10:
+				delete_history.remove_at(0)
 			board[players[curr_player - 1][0]] = 0
 			players[curr_player - 1].remove_at(0)
 
@@ -100,7 +106,21 @@ func board_to_string(board): #convert board list to a printable string
 
 
 func undo():
-	pass
+	var prev = curr_player - 1
+	if prev < 1:
+		prev = Global.player_count
+	
+	if len(delete_history) > 0:
+		board[delete_history[-1]["box"]] = delete_history[-1]["state"]
+		players[prev - 1].insert(0, delete_history[-1]["box"])
+		delete_history.remove_at(delete_history.size() - 1)
+	
+	if len(players[prev - 1]) > 0:
+		board[players[prev - 1][-1]] = 0
+		players[prev - 1].remove_at(players[prev - 1].size() - 1)
+		curr_player = prev
+	
+	$CenterContainer/Board.update_board()
 
 
 func on_box_update():

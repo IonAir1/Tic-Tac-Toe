@@ -71,4 +71,5 @@ size_flags_horizontal = 4
 [node name="Board" type="Node2D" parent="CenterContainer"]
 script = ExtResource("2_w2uk7")
 
+[connection signal="pressed" from="MarginContainer/Home" to="." method="_on_home_pressed"]
 [connection signal="pressed" from="MarginContainer/Undo" to="." method="_on_undo_pressed"]
