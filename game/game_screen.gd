@@ -47,6 +47,7 @@ func input_play(cell): #lets the player take a turn
 	if(check_for_win(curr_player)):
 		print("player %s won" % curr_player)
 		Global.winner = ("player %s won" % curr_player)
+		get_tree().change_scene_to_file("res://menu/main_menu.tscn")
 
 
 func delete_box(n):
@@ -132,4 +133,5 @@ func _on_undo_pressed():
 
 
 func _on_home_pressed():
-	pass # Replace with function body.
+	Global.winner = ""
+	get_tree().change_scene_to_file("res://menu/main_menu.tscn")
