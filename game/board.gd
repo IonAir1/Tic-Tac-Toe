@@ -1,8 +1,8 @@
 extends Node2D
 
-var row:PackedScene = preload("res://game/board_pieces/row.tscn")
-var rows:Array
+@export var row:PackedScene
 var color_shift:bool = false 
+var rows:Array
 var board_state: Array
 
 
@@ -10,18 +10,17 @@ func _ready():
 	scale.x = (3.0 / Global.board_size)
 	scale.y = (3.0 / Global.board_size)
 
-	for i in range(Global.board_size):
+	for i in range(Global.board_size):  #instantiate the board
 		var r = row.instantiate()
-		
-		if !color_shift and (i%2 == 0):
-			r.color_shift = true
-		elif color_shift and (i%2 == 1):
-			r.color_shift = true
-		else:
-			r.color_shift = false
+		#if !color_shift and (i%2 == 0):
+			#r.color_shift = true
+		#elif color_shift and (i%2 == 1):
+			#r.color_shift = true
+		#else:
+			#r.color_shift = false
 		rows.append(r)
 		r.row_number = i
-		r.position.y = find_pos(Global.board_size, i)
+		r.position.y = calc_pos(Global.board_size, i)
 		add_child(r)
 
 
@@ -32,8 +31,7 @@ func update_board():
 		rows[i].update_row()
 
 
-func find_pos(board_size, pos): #determine position of cell
-	
+func calc_pos(board_size, pos): #calculate position of rows
 	if board_size%2 == 0: #if even
 		var half_board = (board_size/2)-1
 		if pos <= half_board:

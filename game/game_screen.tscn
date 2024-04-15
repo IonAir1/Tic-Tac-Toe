@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://vssi4leqb0mm"]
+[gd_scene load_steps=5 format=3 uid="uid://vssi4leqb0mm"]
 
 [ext_resource type="Script" path="res://game/game_screen.gd" id="1_kygwj"]
 [ext_resource type="Script" path="res://game/board.gd" id="2_w2uk7"]
+[ext_resource type="PackedScene" uid="uid://be7lop6n8orko" path="res://game/board_pieces/row.tscn" id="3_36ug3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8iy5"]
 bg_color = Color(0.258824, 0.258824, 0.258824, 1)
 
-[node name="GameScreen" type="Control"]
+[node name="GameScreen" type="Control" node_paths=PackedStringArray("board_node")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +18,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 script = ExtResource("1_kygwj")
+board_node = NodePath("CenterContainer/Board")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -70,6 +72,7 @@ size_flags_horizontal = 4
 
 [node name="Board" type="Node2D" parent="CenterContainer"]
 script = ExtResource("2_w2uk7")
+row = ExtResource("3_36ug3")
 
 [connection signal="pressed" from="MarginContainer/Home" to="." method="_on_home_pressed"]
 [connection signal="pressed" from="MarginContainer/Undo" to="." method="_on_undo_pressed"]

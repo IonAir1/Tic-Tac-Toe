@@ -1,15 +1,17 @@
 extends Node2D
 
-var color_shift:bool = false
-var state:int = 0
+
+var color_shift:bool
+var state:int
 var box_number:int
 
 
 func _ready():
-	if color_shift:
-		$background.modulate = Color(0.75,0.75,0.75)
-	else:
-		$background.modulate = Color(1,1,1)
+	pass
+	#if color_shift:
+		#$background.modulate = Color(0.75,0.75,0.75)
+	#else:
+		#$background.modulate = Color(1,1,1)
 
 func update_state():
 	if state == 0:
@@ -37,7 +39,6 @@ func update_state():
 		$p2.visible = false
 		$p3.visible = false
 		$p4.visible = true
-
 
 
 func _on_button_pressed():

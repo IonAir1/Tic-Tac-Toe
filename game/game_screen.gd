@@ -1,7 +1,11 @@
 extends Control
 
-var board:Array
+
+@export var board_node: Node2D
+var main_menu_scene = "res://menu/main_menu.tscn"
+
 var curr_player: int = 1
+var board:Array
 var players:Array
 var delete_history:Array
 
@@ -13,19 +17,9 @@ func _ready():
 	for i in range(Global.player_count):
 		players.append([])
 	
-	#print(board_to_string(board))
-	
-	for row in $CenterContainer/Board.get_children():
+	for row in board_node.get_children():
 		for box in row.get_children():
 			box.get_node("button").pressed.connect(on_box_update)
-
-
-func _process(delta):
-	pass
-	
-	#if Input.is_action_just_released("enter"):
-		#input_play(int($LineEdit.text))
-		#print(board_to_string(board))
 
 
 func input_play(cell): #lets the player take a turn
@@ -41,17 +35,17 @@ func input_play(cell): #lets the player take a turn
 	if(check_for_win(curr_player)): #check for win
 		print("player %s won" % curr_player)
 		Global.winner = ("player %s won" % curr_player)
-		get_tree().change_scene_to_file("res://menu/main_menu.tscn")
+		get_tree().change_scene_to_file(main_menu_scene)
 		
 	if !board.has(0): #check for draw
 		Global.winner = "Game ended in draw"
-		get_tree().change_scene_to_file("res://menu/main_menu.tscn")
+		get_tree().change_scene_to_file(main_menu_scene)
 	
 	curr_player += 1
 	if curr_player > Global.player_count:
 		curr_player = 1
-	$CenterContainer/Board.board_state = board
-	$CenterContainer/Board.update_board()
+	board_node.board_state = board
+	board_node.update_board()
 
 
 func delete_box(n):
@@ -125,17 +119,15 @@ func undo():
 		board[players[prev - 1][-1]] = 0
 		players[prev - 1].remove_at(players[prev - 1].size() - 1)
 		curr_player = prev
-	$CenterContainer/Board.update_board()
+	board_node.update_board()
 
 
 func on_box_update():
 	input_play(Global.latest_box)
 
-
 func _on_undo_pressed():
 	undo()
 
-
 func _on_home_pressed():
 	Global.winner = ""
-	get_tree().change_scene_to_file("res://menu/main_menu.tscn")
+	get_tree().change_scene_to_file(main_menu_scene)
